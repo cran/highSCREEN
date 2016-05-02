@@ -1,0 +1,5 @@
+exportPattern("^[[:alpha:]]+")
+import(gplots)
+importFrom("graphics", "axis", "box", "plot")
+importFrom("stats", "cov", "density", "mad", "medpolish", "sd", "var")
+
