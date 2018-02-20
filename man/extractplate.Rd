@@ -2,24 +2,24 @@
 \alias{extractplate}
 
 \title{
- title
+ Extract plate
 }
 \description{
  description
 }
 \usage{
-extractplate(datbefore, datafter, plate, replicate)
+extractplate(dat0, dat1, plate, replicate)
 }
 
 \arguments{
-  \item{datbefore}{
-  A list consisting of the following elements for the "Before" data set:
+  \item{dat0}{
+  A list consisting of the following elements for the t0-specific data set:
   \eqn{Replicate1}: Data frame containing the first triplicate and 4 additional columns specifying the controls and their plate locations.
   \eqn{Replicate2}: Data frame containing the second triplicate and 4 additional columns specifying the controls and their plate locations.
   \eqn{Replicate3}: Data frame containing the third triplicate and 4 additional columns specifying the controls and their plate locations.
 }
-  \item{datafter}{
-  A list consisting of the following elements for the "After" data set:
+  \item{dat1}{
+  A list consisting of the following elements for the t1-specific data set:
   \eqn{Replicate1}: Data frame containing the first triplicate and 4 additional columns specifying the controls and their plate locations.
   \eqn{Replicate2}: Data frame containing the second triplicate and 4 additional columns specifying the controls and their plate locations.
   \eqn{Replicate3}: Data frame containing the third triplicate and 4 additional columns specifying the controls and their plate locations.
@@ -34,8 +34,8 @@ extractplate(datbefore, datafter, plate, replicate)
 
 \value{
   This function returns a list consisting of the following elements:
-  \item{datbefore}{Data frame containing the "Before" plate of compounds and controls.}
-  \item{datafter}{Data frame containing the "After" plate of compounds and controls.}
+  \item{dat0}{Data frame containing the t0-specific plate of compounds and controls.}
+  \item{dat1}{Data frame containing the t1-specific plate of compounds and controls.}
 }
 
 \examples{
@@ -44,31 +44,31 @@ nc = 24
 nr = 16
 
 # create 1st replicate of data matrix with compounds and controls
-replicate1 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r1 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
 # create 2nd replicate of data matrix with compounds and controls
-replicate2 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r2 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
 # create 3rd replicate of data matrix with compounds and controls
-replicate3 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r3 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
-# combine all replicate to create "before" data set
-replicates_before = list(replicate1, replicate2, replicate3)
-names(replicates_before) = c("Replicate1", "Replicate2", "Replicate3")
+# combine all replicate to create t0-specific data set
+replicates_t0 = list(r1, r2, r3)
+names(replicates_t0) = c("R1", "R2", "R3")
 
 # create 1st replicate of data matrix with compounds and controls
-replicate1 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r1 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
 # create 2nd replicate of data matrix with compounds and controls
-replicate2 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r2 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
 # create 3rd replicate of data matrix with compounds and controls
-replicate3 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r3 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
-# combine all replicate to create "after" data set
-replicates_after = list(replicate1, replicate2, replicate3)
-names(replicates_after) = c("Replicate1", "Replicate2", "Replicate3")
+# combine all replicate to create t1-specific data set
+replicates_t1 = list(r1, r2, r3)
+names(replicates_t1) = c("R1", "R2", "R3")
 
 # extract plate 3, replicate 2
-extractplate(replicates_before, replicates_after, plate=3, replicate=2)
+extractplate(replicates_t0, replicates_t1, plate=3, replicate=2)
 }

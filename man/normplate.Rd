@@ -2,13 +2,13 @@
 \alias{normplate}
 
 \title{
- title
+ Normalize plate
 }
 \description{
  description
 }
 \usage{
-normplate(mainplate, datbefore, datafter, cmap, plate, triplicate, norm="bscore",
+normplate(mainplate, dat0, dat1, cmap, plate, replicate, norm="bscore",
  poscont=NULL, negcont=NULL)
 }
 
@@ -16,11 +16,11 @@ normplate(mainplate, datbefore, datafter, cmap, plate, triplicate, norm="bscore"
   \item{mainplate}{
   Main Plate designation.
 }
-  \item{datbefore}{
-  Data frame containing the 96-well "Before" plate/quadrant to be normalized.
+  \item{dat0}{
+  Data frame containing the 96-well t0-specific plate/quadrant to be normalized.
 }
-  \item{datafter}{
-  Data frame containing the 96-well "After" plate/quadrant to be normalized.
+  \item{dat1}{
+  Data frame containing the 96-well t1-specific plate/quadrant to be normalized.
 }
   \item{cmap}{
   96-well plate control map.
@@ -28,8 +28,8 @@ normplate(mainplate, datbefore, datafter, cmap, plate, triplicate, norm="bscore"
   \item{plate}{
   Plate/quadrant designation. Ranges from 1 to 4.
 }
-  \item{triplicate}{
-  Triplicate designation. Ranges from 1 to 3.
+  \item{replicate}{
+  Replicate designation.
 }
   \item{norm}{
   Normalization method to be applied. Currenlty implemented methods include C-score (\eqn{cscore}), B-score (\eqn{bscore}), Z-score (eqn{zscore}) and no normalization (\eqn{raw}).
@@ -45,9 +45,9 @@ normplate(mainplate, datbefore, datafter, cmap, plate, triplicate, norm="bscore"
 \value{
   Data frame containing the following columns:
   \item{MainPlate}{Specifies the main plate to wich the compound/control belongs.}
-  \item{Time}{Specifies "Before" or "After".}
+  \item{Time}{Specifies t0 (0) or t1 (1) specific data.}
   \item{Plate}{Specifies the quadrant/plate to wich the compound/control belongs.}
-  \item{Triplicate}{Specifies triplicate.}
+  \item{Replicate}{Specifies replicate.}
   \item{Norm}{Specifies the normalization method that was applied for the specific compound.}
   \item{well}{Specifies the location (row and column) of the compound/control in the quadrant.}
   \item{row}{Specifies the row location in the quadrant.}
@@ -72,44 +72,44 @@ cmap = cmap[seq(1,nr,2),]
 cmap
 
 # create 1st replicate of data matrix with compounds and controls
-replicate1 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r1 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
 # create 2nd replicate of data matrix with compounds and controls
-replicate2 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r2 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
 # create 3rd replicate of data matrix with compounds and controls
-replicate3 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r3 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
-# combine all replicate for the before data
-replicates_before = list(replicate1, replicate2, replicate3)
-names(replicates_before) = c("Replicate1", "Replicate2", "Replicate3")
+# combine all replicate for the t0-specific data
+replicates_t0 = list(r1, r2, r3)
+names(replicates_t0) = c("R1", "R2", "R3")
 
 # create 1st replicate of data matrix with compounds and controls
-replicate1 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r1 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
 # create 2nd replicate of data matrix with compounds and controls
-replicate2 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r2 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
 # create 3rd replicate of data matrix with compounds and controls
-replicate3 = matrix(abs(rnorm(nr*nc)), nr, nc)
+r3 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
-# combine all replicate for the after data
-replicates_after = list(replicate1, replicate2, replicate3)
-names(replicates_after) = c("Replicate1", "Replicate2", "Replicate3")
+# combine all replicate for the t1-specific data
+replicates_t1 = list(r1, r2, r3)
+names(replicates_t1) = c("R1", "R2", "R3")
 
 # extract plate 1, replicate 1
-dat = extractplate(replicates_before, replicates_after, plate=1, replicate=1)
+dat = extractplate(replicates_t0, replicates_t1, plate=1, replicate=1)
 
 # normalize using c-score
-head(normplate("Main Plate 1", dat[["datbefore"]], dat[["datafter"]], cmap, 
-plate=1, triplicate=1, norm="cscore",
+head(normplate("Main Plate 1", dat[["dat0"]], dat[["dat1"]], cmap, 
+plate=1, replicate=1, norm="cscore",
  poscont="Control P", negcont="Control N"))
 
 # normalize using b-score (medpolish)
-head(normplate("Main Plate 1", dat[["datbefore"]], dat[["datafter"]], cmap, 
-plate=1, triplicate=1, norm="bscore"))
+head(normplate("Main Plate 1", dat[["dat0"]], dat[["dat1"]], cmap, 
+plate=1, replicate=1, norm="bscore"))
 
 # normalize using z-score
-head(normplate("Main Plate 1", dat[["datbefore"]], dat[["datafter"]], cmap, 
-plate=1, triplicate=1, norm="zscore"))
+head(normplate("Main Plate 1", dat[["dat0"]], dat[["dat1"]], cmap, 
+plate=1, replicate=1, norm="zscore"))
 }

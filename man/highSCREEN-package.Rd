@@ -3,7 +3,7 @@
 \alias{highSCREEN}
 \docType{package}
 \title{
- High Throughput Screening for Plate Based Essays
+ High-Throughput Screening for Plate Based Essays
 }
 \description{
 This package can be used to carry out extraction, normalization, quality control (QC), candidate hits identification and visualization for plate based essays, in drug discovery.
@@ -16,15 +16,7 @@ The DESCRIPTION file:
 
 }
 \author{
-\packageAuthor{highSCREEN}
+  I. D. Shterev, C. Chan and G. D. Sempowski
 
-Maintainer: \packageMaintainer{highSCREEN}
-}
-\references{
- references
-}
-
-\keyword{ package }
-\examples{
- #example
+Maintainer: I. D. Shterev <i.shterev@duke.edu>
 }

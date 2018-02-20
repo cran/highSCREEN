@@ -1,38 +1,38 @@
-extractplate = function(datbefore, datafter, plate, replicate){
-  datbefore = datbefore[[replicate]]
-  datafter = datafter[[replicate]]
+extractplate = function(dat0, dat1, plate, replicate){
+  dat0 = dat0[[replicate]]
+  dat1 = dat1[[replicate]]
 
   if (plate == 1){
-    datbefore = datbefore[seq(1,nrow(datbefore),2),]
-    datbefore = datbefore[,seq(1,24,2)]
+    dat0 = dat0[seq(1,nrow(dat0),2),]
+    dat0 = dat0[,seq(1,24,2)]
 
-    datafter = datafter[seq(1,nrow(datafter),2),]
-    datafter = datafter[,seq(1,24,2)]
+    dat1 = dat1[seq(1,nrow(dat1),2),]
+    dat1 = dat1[,seq(1,24,2)]
   }
   else if (plate == 2){
-    datbefore = datbefore[seq(1,nrow(datbefore),2),]
-    datbefore = datbefore[,seq(2,24,2)]
+    dat0 = dat0[seq(1,nrow(dat0),2),]
+    dat0 = dat0[,seq(2,24,2)]
 
-    datafter = datafter[seq(1,nrow(datafter),2),]
-    datafter = datafter[,seq(2,24,2)]
+    dat1 = dat1[seq(1,nrow(dat1),2),]
+    dat1 = dat1[,seq(2,24,2)]
   }
   else if (plate == 3){
-    datbefore = datbefore[seq(2,nrow(datbefore),2),]
-    datbefore = datbefore[,seq(1,24,2)]
+    dat0 = dat0[seq(2,nrow(dat0),2),]
+    dat0 = dat0[,seq(1,24,2)]
 
-    datafter = datafter[seq(2,nrow(datafter),2),]
-    datafter = datafter[,seq(1,24,2)]
+    dat1 = dat1[seq(2,nrow(dat1),2),]
+    dat1 = dat1[,seq(1,24,2)]
   }
   else if (plate == 4){
-    datbefore = datbefore[seq(2,nrow(datbefore),2),]
-    datbefore = datbefore[,seq(2,24,2)]
+    dat0 = dat0[seq(2,nrow(dat0),2),]
+    dat0 = dat0[,seq(2,24,2)]
 
-    datafter = datafter[seq(2,nrow(datafter),2),]
-    datafter = datafter[,seq(2,24,2)]
+    dat1 = dat1[seq(2,nrow(dat1),2),]
+    dat1 = dat1[,seq(2,24,2)]
   }
   else 
     stop ("unknown plate.")
 
-  datall = list(datbefore=datbefore, datafter=datafter)
+  datall = list(dat0=dat0, dat1=dat1)
   return(datall)
 }

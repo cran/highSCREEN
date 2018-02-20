@@ -1,4 +1,5 @@
-plotplate = function(dat, score="score", main){
+plotplate = function(dat, score="S", main){
   x = as.matrix(dat[grep(score, colnames(dat))])
-  heatmap.2(x, labRow=dat[["well"]], cexRow=0.35, cexCol=0.6, srtCol=0, density.info="none", main=main)
+  rownames(x) = dat[["well"]]
+  heatmap.2(x, cexRow=0.35, cexCol=0.6, srtCol=0, density.info="none", main=main)
 }

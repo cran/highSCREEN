@@ -2,13 +2,13 @@
 \alias{rankhits}
 
 \title{
- title
+ Rank hits
 }
 \description{
- This function ranks the candidate compound hits based on the mean of "After" scores.
+ This function ranks the candidate compound hits based on the mean of t1-specific scores.
 }
 \usage{
-rankhits(dat, score.before="scorebefore", score.after="scoreafter", var="ma")
+rankhits(dat, score.before="S0", score.after="S1", var="m1")
 }
 
 \arguments{
@@ -16,10 +16,10 @@ rankhits(dat, score.before="scorebefore", score.after="scoreafter", var="ma")
   Data frane as the output of the function \eqn{formatRESULT}.
 }
   \item{score.before}{
-  Specifies the name of the columns containing "Before" scores.
+  Specifies the name of the columns containing t0-specific scores.
 }
   \item{score.after}{
-  Specifies the name of the columns containing "After" scores.
+  Specifies the name of the columns containing t1-specific scores.
 }
   \item{var}{
   Specifies the variable according to which the ranking is done.
@@ -36,20 +36,20 @@ rankhits(dat, score.before="scorebefore", score.after="scoreafter", var="ma")
   \item{row}{Specifies the row location in the quadrant.}
   \item{col}{Specifies the column location in the quadrant.}
   \item{welltype}{Specifies if the well is compound or control.}
-  \item{scorebefore}{Replicates of the score from the "Before" data set.}
-  \item{scoreafter}{Replicates of the score from the "After" data set.}
+  \item{S0}{Replicates of the score from the t0-specific data set.}
+  \item{S1}{Replicates of the score from the t1-specific data set.}
   \item{IND2}{Indicator variable specifying if the compound passes (\eqn{TRUE}) or fails (\eqn{FALSE}) QC2.}
   \item{IND3}{Indicator variable specifying if the compound passes (\eqn{TRUE}) or fails (\eqn{FALSE}) QC3.}
-  \item{diff}{Difference between mean of "After" and "Before" replicates.}
-  \item{mb}{Mean of "Before" replicates (MB).}
-  \item{sb}{Standard deviation of "Before" replicates (SB).}
-  \item{rsb}{Coefficient of variation of "Before" replicates. It is the ratio of SB and MB.}
-  \item{ma}{Mean of "After" replicates (MA).}
-  \item{sa}{Standard deviation of "After" replicates (SA)}
-  \item{rsa}{Coefficient of variation of "After" replicates. It is the ratio of SB and MB.}
+  \item{diff}{Difference between mean of t1 and t0 replicates.}
+  \item{m0}{Mean of t0-specific replicates (MB).}
+  \item{s0}{Standard deviation of t0-specific replicates (SB).}
+  \item{rs0}{Coefficient of variation of t0-specific replicates. It is the ratio of S0 and M0.}
+  \item{m1}{Mean of t1-specific replicates (MA).}
+  \item{s1}{Standard deviation of t1-specific replicates (SA)}
+  \item{rs1}{Coefficient of variation of t1-specific replicates. It is the ratio of S1 and M1.}
   \item{ind_below}{see \eqn{ind} below}
   \item{ind_above}{see \eqn{ind} below}
-  \item{ind}{\eqn{TRUE} (if both \eqn{ind_below} and \eqn{ind_above} are \eqn{TRUE}) if RSA is within the \eqn{1.5 \times IQR}, where interquartile range (\eqn{IQR}) is computed based on all hits.}
+  \item{ind}{\eqn{TRUE} (if both \eqn{ind_below} and \eqn{ind_above} are \eqn{TRUE}) if RS1 is within the \eqn{1.5 \times IQR}, where interquartile range (\eqn{IQR}) is computed based on all hits.}
 }
 
 \examples{
@@ -57,8 +57,8 @@ set.seed(1234)
 nc = 24
 nr = 16
 
-# create 1st triplicate of data matrix with compounds and controls
-replicate1 = matrix(abs(rnorm(nr*nc)*0.01), nr, nc)
+# create 1st replicate of data matrix with compounds and controls
+r1 = matrix(abs(rnorm(nr*nc)*0.01), nr, nc)
 
 # create control map
 cmap = data.frame(X1=c(rep("Control P", floor(nr/3)), 
@@ -69,70 +69,70 @@ rep(c("Control low", "Control med", "Control high"),
 (floor(nr/3)+nr-3*floor(nr/3))/3), rep("Control P", floor(nr/3))))
 cmap = cmap[seq(1,nr,2),]
 
-# create 2nd triplicate of data matrix with compounds and controls
-replicate2 = matrix(abs(rnorm(nr*nc)*0.01), nr, nc)
+# create 2nd replicate of data matrix with compounds and controls
+r2 = matrix(abs(rnorm(nr*nc)*0.01), nr, nc)
 
-# create 3rd triplicate of data matrix with compounds and controls
-replicate3 = matrix(abs(rnorm(nr*nc)*0.01), nr, nc)
+# create 3rd replicate of data matrix with compounds and controls
+r3 = matrix(abs(rnorm(nr*nc)*0.01), nr, nc)
 
-# combine all triplicates for the before data
-replicates_before = list(replicate1, replicate2, replicate3)
-names(replicates_before) = c("Replicate1", "Replicate2", "Replicate3")
+# combine all replicates for the t0-specific data
+replicates_t0 = list(r1, r2, r3)
+names(replicates_t0) = c("R1", "R2", "R3")
 
-# create 1st triplicate of data matrix with compounds and controls
-replicate1 = matrix(abs(rnorm(nr*nc)), nr, nc)
+# create 1st replicate of data matrix with compounds and controls
+r1 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
-# create 2nd triplicate of data matrix with compounds and controls
-replicate2 = matrix(abs(rnorm(nr*nc)), nr, nc)
+# create 2nd replicate of data matrix with compounds and controls
+r2 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
-# create 3rd triplicate of data matrix with compounds and controls
-replicate3 = matrix(abs(rnorm(nr*nc)), nr, nc)
+# create 3rd replicate of data matrix with compounds and controls
+r3 = matrix(abs(rnorm(nr*nc)), nr, nc)
 
-# combine all triplicates for the after data
-replicates_after = list(replicate1, replicate2, replicate3)
-names(replicates_after) = c("Replicate1", "Replicate2", "Replicate3")
+# combine all replicates for the t1-specific data
+replicates_t1 = list(r1, r2, r3)
+names(replicates_t1) = c("R1", "R2", "R3")
 
 # extract plate 1, replicate 1
-dat1 = extractplate(replicates_before, replicates_after, plate=1, replicate=1)
+dat1 = extractplate(replicates_t0, replicates_t1, plate=1, replicate=1)
 # extract plate 1, replicate 2
-dat2 = extractplate(replicates_before, replicates_after, plate=1, replicate=2)
+dat2 = extractplate(replicates_t0, replicates_t1, plate=1, replicate=2)
 # extract plate 1, replicate 3
-dat3 = extractplate(replicates_before, replicates_after, plate=1, replicate=3)
+dat3 = extractplate(replicates_t0, replicates_t1, plate=1, replicate=3)
 
 # no normalizion
-datraw1 = normplate("Main Plate 1", dat1[["datbefore"]], dat1[["datafter"]], cmap,
- plate=1, triplicate=1, norm="raw")
-datraw2 = normplate("Main Plate 1", dat2[["datbefore"]], dat2[["datafter"]], cmap,
- plate=1, triplicate=2, norm="raw")
-datraw3 = normplate("Main Pltae 1", dat3[["datbefore"]], dat3[["datafter"]], cmap,
- plate=1, triplicate=3, norm="raw")
+datraw1 = normplate("Main Plate 1", dat1[["dat0"]], dat1[["dat1"]], cmap,
+ plate=1, replicate=1, norm="raw")
+datraw2 = normplate("Main Plate 1", dat2[["dat0"]], dat2[["dat1"]], cmap,
+ plate=1, replicate=2, norm="raw")
+datraw3 = normplate("Main Pltae 1", dat3[["dat0"]], dat3[["dat1"]], cmap,
+ plate=1, replicate=3, norm="raw")
 
-# combine 3 triplicates
+# combine 3 replicates
 datraw = rbind(datraw1, datraw2, datraw3)
 
 # reformat result
-datraw = formatRESULT(datraw, triplicate="Triplicate", score="score", t="Time")
+datraw = formatRESULT(datraw, replicate="Replicate", t="Time")
 
 # c-score normalization
-datnorm1 = normplate("Main Plate 1", dat1[["datbefore"]], dat1[["datafter"]], cmap,
- plate=1, triplicate=1, norm="cscore", 
+datnorm1 = normplate("Main Plate 1", dat1[["dat0"]], dat1[["dat1"]], cmap,
+ plate=1, replicate=1, norm="cscore", 
 poscont="Control P", negcont="Control N")
-datnorm2 = normplate("Main Plate 1", dat2[["datbefore"]], dat2[["datafter"]], cmap,
- plate=1, triplicate=2, norm="cscore", 
+datnorm2 = normplate("Main Plate 1", dat2[["dat0"]], dat2[["dat1"]], cmap,
+ plate=1, replicate=2, norm="cscore", 
 poscont="Control P", negcont="Control N")
-datnorm3 = normplate("Main Pltae 1", dat3[["datbefore"]], dat3[["datafter"]], cmap,
- plate=1, triplicate=3, norm="cscore", 
+datnorm3 = normplate("Main Pltae 1", dat3[["dat0"]], dat3[["dat1"]], cmap,
+ plate=1, replicate=3, norm="cscore", 
 poscont="Control P", negcont="Control N")
 
-# combine 3 triplicates
+# combine 3 replicates
 datnorm = rbind(datnorm1, datnorm2, datnorm3)
 
 # reformat result
-datnorm = formatRESULT(datnorm, triplicate="Triplicate", score="score", t="Time")
+datnorm = formatRESULT(datnorm, replicate="Replicate", t="Time")
 
 # identify hits
 h = hits(datraw, datnorm, qc.mainplates="Main Plate 1", qc1.val=0.225, hit.val=3)
 
-# rank hits in disending order of mean of "after" replicate scores "ma"
+# rank hits in disending order of mean of t1-specific replicate scores "m1"
 head(rankhits(h))
 }
