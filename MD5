@@ -1,4 +1,4 @@
-38ad6f61bb0c37fbe7f16f13d383671d *DESCRIPTION
+63dc54218726b67ff56fd816f0b12855 *DESCRIPTION
 f1e9e8e6eeebfc6fe47cb6b3538768c4 *NAMESPACE
 02c9e33a6ce1b62ec7470dfe59c61f0a *NEWS
 c5a28ae174b8ae8379aa54d8e022d302 *R/extractplate.R
@@ -10,14 +10,14 @@ e09464be9c00efb95f9b9511e95e2b07 *R/plotplate.R
 959f4dc8990f92ef9212dc2bd897cdac *R/qcplate.R
 d3dccfd70b3c75177a104afed77949ba *R/rankhits.R
 c90984e43140a3f71c748e3e72dfcf39 *R/zfactor.ssmd.R
-af07ce5969567425b0fb6717c213f25f *build/partial.rdb
-038968fd94424931db401102d6dc6a80 *build/vignette.rds
-3a2081c67a081567f3c74f71d4e385b9 *inst/doc/highSCREENmanual.R
+b53a67d41422edcad46e18fff7fb647e *build/partial.rdb
+9c2eeaaddb4cb21bac50823eb27d7850 *build/vignette.rds
+c27145155eb93cec3a62f7405f74265f *inst/doc/highSCREENmanual.R
 785f686052a225f590accf814c1da3db *inst/doc/highSCREENmanual.Rnw
-84852b1393bb5fb16a614a26722c8ffb *inst/doc/highSCREENmanual.pdf
+917afe2954c6ec19b88a417286eb3b2f *inst/doc/highSCREENmanual.pdf
 186767cfe2c3963a1cbb4d8b8bc2e8ac *man/extractplate.Rd
 91e6ce84db11fc8b5245457a2c7b8241 *man/formatRESULT.Rd
-a29cf78971269196f60da9efd3e6aee0 *man/highSCREEN-package.Rd
+f6b60b5ca44fdf6ac79f6d71ce46c755 *man/highSCREEN-package.Rd
 b10cb56e845aa9648a35af0e65b403cd *man/hits.Rd
 e34b298b355578cad2d41dcfc6321071 *man/normplate.Rd
 6fe93dc63d954fcb347d9cd2e1955af0 *man/plotcont.Rd

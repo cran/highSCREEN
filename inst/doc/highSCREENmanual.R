@@ -1,4 +1,4 @@
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 set.seed(1234)
 library(highSCREEN)
 nc = 24
@@ -25,7 +25,7 @@ floor(nr/3))))
 cmap = cmap[seq(1,nr,2),]
 cmap
 
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 set.seed(1234)
 library(highSCREEN)
 nc = 24
@@ -60,7 +60,7 @@ names(replicates_t1) = c("R1", "R2", "R3")
 # extract plate 3, replicate 2
 extractplate(replicates_t0, replicates_t1, plate=3, replicate=2)
 
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 set.seed(1234)
 library(highSCREEN)
 nc = 24
@@ -112,7 +112,7 @@ head(normplate("Main Plate 1", dat[["dat0"]], dat[["dat1"]], cmap, plate=1, repl
 # normalize using z-score
 head(normplate("Main Plate 1", dat[["dat0"]], dat[["dat1"]], cmap, plate=1, replicate=1, norm="zscore"))
 
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 set.seed(1234)
 library(highSCREEN)
 nc = 24
@@ -163,7 +163,7 @@ res3 = normplate("Main Plate 1", dat3[["dat0"]], dat3[["dat1"]], cmap, plate=1, 
 # reformat data of all replicates
 head(formatRESULT(rbind(res1, res2, res3), replicate="Replicate", score="S", t="Time"))
 
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 set.seed(1234)
 library(highSCREEN)
 nc = 24
@@ -224,7 +224,7 @@ res1 = formatRESULT(res1, replicate="Replicate", score="S", t="Time")
 qcplate(res1, poscont="Control P", negcont="Control N", qc1.val=0.225, qc2.val=2, 
 addcont=c("Control low", "Control med", "Control high"), welltype="welltype")
 
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 set.seed(1234)
 library(highSCREEN)
 
@@ -284,7 +284,7 @@ datraw = formatRESULT(datraw, replicate="Replicate", score="S", t="Time")
 # compute z-factor and ssmd for each raw compound, replicate 1
 zfactor.ssmd(datraw, "Control P", "Control N", "Main Plate 1", 1)
 
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 set.seed(1234)
 library(highSCREEN)
 
@@ -360,7 +360,7 @@ datnorm = formatRESULT(datnorm, replicate="Replicate", score="S", t="Time")
 # identify hits
 head(hits(datraw, datnorm, qc.mainplates="Main Plate 1", qc1.val=0.225, hit.val=3))
 
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 set.seed(1234)
 library(highSCREEN)
 
@@ -437,7 +437,7 @@ h = hits(datraw, datnorm, qc.mainplates="Main Plate 1", qc1.val=0.225, hit.val=3
 # rank hits in descending order of mean of t1-specific replicate scores "ma"
 head(rankhits(h))
 
-## ----echo=TRUE-----------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 set.seed(1234)
 library(highSCREEN)
 library(gplots)
